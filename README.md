@@ -1,2 +1,2 @@
 # Buiten-Bereik
-Alfabetisch
+Uw ICT'ers wenst u een prettige dag.
