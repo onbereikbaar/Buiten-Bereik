@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documentatie - Segment Flessen</title>
+
+<style>
+body {
+  margin: 0;
+  padding: 35px 20px;
+  background: #090909;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 25px;
+  background: #181818;
+  border: 1px solid #292929;
+  border-radius: 12px;
+  line-height: 1.7;
+}
+
+p, li {
+  color: #aaa;
+}
+
+a {
+  color: white;
+}
+
+#content {
+  overflow-wrap: anywhere;
+}
+</style>
+</head>
+
+<body>
+
+<a href="methods.html">← Terug naar methodes</a>
+
+<div class="container">
+  <div id="content">Documentatie laden...</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+const id = new URLSearchParams(location.search).get("id");
+const allowed = ["GSG-2026-001"];
+
+async function loadDocument() {
+  const content = document.getElementById("content");
+
+  if (!allowed.includes(id)) {
+    content.textContent = "Document niet gevonden.";
+    return;
+  }
+
+  try {
+    const response = await fetch(`methods/${id}.md`);
+
+    if (!response.ok) {
+      throw new Error("Bestand niet gevonden");
+    }
+
+    const markdown = await response.text();
+    content.innerHTML = marked.parse(markdown);
+  } catch (error) {
+    content.textContent = "Documentatie kon niet worden geladen.";
+  }
+}
+
+loadDocument();
+</script>
+
+</body>
+</html>
